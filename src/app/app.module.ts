@@ -18,11 +18,17 @@ import { CONFIG_TOKEN } from './core/injection-tokens/config.token';
 import { environment } from '../environments/environment';
 import { ErrorPrintInterceptor } from './core/interceptors/error-print.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthorizationInterceptor } from './core/interceptors/authorization.interceptor';
 
 const interceptors: Provider[] = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorPrintInterceptor,
+    multi: true,
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthorizationInterceptor,
     multi: true,
   },
 ];

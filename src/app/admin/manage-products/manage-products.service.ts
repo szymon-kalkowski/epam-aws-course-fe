@@ -2,6 +2,8 @@ import { Injectable, Injector } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { ApiService } from '../../core/api.service';
 import { switchMap } from 'rxjs/operators';
+import { HttpContext } from '@angular/common/http';
+import { IS_AUTHORIZATION_ENABLED } from 'src/app/core/interceptors/authorization.interceptor';
 
 @Injectable()
 export class ManageProductsService extends ApiService {
@@ -24,6 +26,7 @@ export class ManageProductsService extends ApiService {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'Content-Type': 'text/csv',
           },
+          context: new HttpContext().set(IS_AUTHORIZATION_ENABLED, false),
         })
       )
     );
